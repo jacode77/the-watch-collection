@@ -6,11 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-brands = ["Rolex", "Omega", "Patek Phillipe", "Piaget", "Cartier", "Jaeger-LeCoultre"]
+brands = ["Rolex", "Omega", "Patek Philippe", "Piaget", "Cartier", "Jaeger-LeCoultre"]
 
 if Brand.count == 0
     brands.each do |b|
         Brand.create(name: b)
         puts "created #{b} brand"
+    end
+end
+
+categories = ["Dress", "Mens", "Womens", "Unisex", "Dive", "Chronograph", "Grail Watch", "Daily Wear"]
+
+if Category.count == 0
+    categories.each do |c|
+        Category.create(name: c)
+        puts "created #{c} category"
     end
 end
