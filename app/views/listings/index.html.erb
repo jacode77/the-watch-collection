@@ -1,0 +1,18 @@
+<%# Heading not styled - all styling to be updated (WIP) %>
+<h1>Listings</h1>
+
+<section class="container">
+    <div class="row row-cols-sm-1 row-cols-mg-2 row-cols-lg-4">
+    <%@listings.each do |item|%>
+    <div class="col mb-4">
+        <div class="card border-dark h-100">
+            <div class="card-body">
+                <h5><%=item.title%></h5>
+                <p class="card-text text-secondary"><%=item.description%></p>
+            </div>
+        </div>
+    </div>
+    <%end%>
+    </div>
+
+</section>
