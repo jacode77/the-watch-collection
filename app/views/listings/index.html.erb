@@ -6,6 +6,7 @@
     <%@listings.each do |item|%>
     <div class="col mb-4">
         <div class="card border-dark h-100">
+            <%=image_tag("patek.jpg", class: "thumbnail card-img top", alt: "Patek Philippe")%>
             <div class="card-body">
                  <h5><%=item.brand_id%></h5> <%# Somehow need to list the actual brand name rather than the ID number %>
                 <p class="card-text text-secondary"><%=item.model%></p>
