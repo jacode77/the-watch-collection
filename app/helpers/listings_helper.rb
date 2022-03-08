@@ -6,6 +6,6 @@ module ListingsHelper
 
     # displays brand name rather than the ID
     def format_brand(brand_id)
-
+        
     end
 end

@@ -52,6 +52,7 @@ class ListingsController < ApplicationController
   def display_listing
     #To show individual listing item
     @listing = Listing.find(params[:id])
+    @brand = Brand.find(@listing.brand_id)
   end
 
   def form_vars
