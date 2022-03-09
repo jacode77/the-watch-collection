@@ -55,12 +55,17 @@ class ListingsController < ApplicationController
     @brand = Brand.find(@listing.brand_id)
   end
 
+  def brand_names
+    @brands = Brand.all
+  end
+
   def form_vars
     @categories = Category.all
+    @brands = Brand.all
   end
 
   def listing_params
-    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description)
+    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture)
   end
 
 end
