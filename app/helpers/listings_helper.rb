@@ -1,7 +1,7 @@
 module ListingsHelper
     # displays pricing in dollars, from cents
     def format_pricing(price)
-        "$#{price/100}"
+        "$#{price/100.0}"
     end
 
     # displays brand name rather than the ID

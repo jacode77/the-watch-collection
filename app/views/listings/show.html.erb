@@ -19,6 +19,15 @@
         <h4 class="text-muted">Authenticity: <%=@listing.authenticity%></h4>
         <h4 class="text-muted">Description: <%=@listing.description%></h4>
         <h4 class="text-muted">Price: <%=format_pricing(@listing.price)%></h4>
+    <div class="container">
+        <%if current_user && current_user.id == @listing.user_id%>
+            <div class="d-flex justify-content-equally">
+                <%= link_to "Edit", edit_listing_path(@listing.id), class: "btn btn-warning mr-2"%>
+                <%= link_to "Delete", @listing, method: :delete, data: {confirm: "Are you sure you want to delete this listing?"}, class: "btn btn-danger mr-2"%>
+            </div>
+        <%end%>
+    </div>
+    
     </div>
     
 </section>

@@ -27,15 +27,14 @@
 
     <%= f.input :year %>
 
-    <%# <%= f.input :authenticity, as: :radio_buttons %>
-       <%# <%= simple_form_for @user do |f| %>
     <%= f.input :authenticity, as: :radio_buttons, collection: [['0', 'false'], ['1', 'true']], label_method: :second, value_method: :first %>
-    <%# <% end %>
 
-  <div class='form-group mb-3'> 
-    <%=f.label :category_id, class: "form-label"%>
-    <%=f.select :category_id, @categories.map {|c| [c.name, c.id]}, class: "form-select"%>
-  </div>
+  <%# <div class='form-group mb-3'>  %>
+    <%# <%=f.label :category_id, class: "form-label"%> 
+    <%=f.select :category_id, @categories.map {|c| [c.name, c.id]}, as: :check_boxes, class: "form-select" %>
+  <%# </div> %>
+
+    <%# <%= f.association :category_id, as: :check_boxes %>
 
   <div class='form-group mb-3'> 
     <%=f.label :picture, class: "form-label"%>

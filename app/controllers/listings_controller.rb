@@ -2,8 +2,9 @@ class ListingsController < ApplicationController
   # If user not signed in can only view the index and show
   before_action :authenticate_user!, except: [:index, :show]
   before_action :display_listing, only: [:show, :edit, :update, :destroy]
+  # creates authorisation so only the user owner can edit/update/destroy their listings
+  before_action :authorize_user, only: [:edit, :update, :destroy]
   before_action :form_vars, only: [:index, :new, :edit]
-  # before_action :brand_names, only: [:index]
 
   def index
     #To show all listings
@@ -45,7 +46,7 @@ class ListingsController < ApplicationController
 
   def destroy
     @listing.destroy
-    redirect_to listings_path, notice: "Successfully deleted"
+    redirect_to listings_path, notice: "Listing successfully deleted"
   end
 
   private
@@ -54,6 +55,12 @@ class ListingsController < ApplicationController
     #To show individual listing item
     @listing = Listing.find(params[:id])
     @brand = Brand.find(@listing.brand_id)
+  end
+
+  def authorize_user
+    if @listing.user_id != current_user.id
+      redirect_to listings_path, alert: "You don't have the required authorisation"
+    end
   end
 
   def brand_names
