@@ -2,7 +2,8 @@ class ListingsController < ApplicationController
   # If user not signed in can only view the index and show
   before_action :authenticate_user!, except: [:index, :show]
   before_action :display_listing, only: [:show, :edit, :update, :destroy]
-  before_action :form_vars, only: [:new, :edit]
+  before_action :form_vars, only: [:index, :new, :edit]
+  # before_action :brand_names, only: [:index]
 
   def index
     #To show all listings
@@ -65,7 +66,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture)
+    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, :category_id)
   end
 
 end

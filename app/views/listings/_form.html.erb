@@ -2,12 +2,19 @@
 <%= simple_form_for @listing do |f|%>
     <%= f.error_notification %>
 
-    <%# <%= f.input :brand_id %>
+    <%# <%= f.input :brand_id%> 
+   
+   <%# Provides brand as a dropdown menu - provides better control %>
+
+
+    <%# <%= f.label :brand_id, class: "form-label"
+    <%= f.select :brand_id, @brands.map {|b| b.name}%> 
+    <%# # <%= f.input :brand_id, collection: @brands.string, as: :grouped_select, group_method: :name  %>
     <div class='form-group mb-3'> 
         <%=f.label :brand_id, class: "form-label"%>
-        <%=f.select :brand_id, @brands.map {|c| [c.name, c.id]}, class: "form-select"%>
+        <%=f.select :brand_id, @brands.map {|b| [b.name, b.id]}, class: "form-select"%>
     </div>
-
+   
     <%= f.input :model %>
 
     <%= f.input :condition %>
@@ -20,7 +27,10 @@
 
     <%= f.input :year %>
 
-    <%= f.input :authenticity, as: :radio_buttons %>
+    <%# <%= f.input :authenticity, as: :radio_buttons %>
+       <%# <%= simple_form_for @user do |f| %>
+    <%= f.input :authenticity, as: :radio_buttons, collection: [['0', 'false'], ['1', 'true']], label_method: :second, value_method: :first %>
+    <%# <% end %>
 
   <div class='form-group mb-3'> 
     <%=f.label :category_id, class: "form-label"%>

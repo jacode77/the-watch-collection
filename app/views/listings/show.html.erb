@@ -1,7 +1,11 @@
 <section class="container d-flex flex-column flex-md-row px-2 my-2 my-md-5">
     <div class="content col-12 col-md-7 col-lg-8 p-0 pr-md-3">
         <div class="col-12 p-0 main-preview mb-4">
-            <%=image_tag "patek.jpg", alt: "Patek Philippe watch", class: "thumbnail card-img-top"%>
+            <%if @listing.picture.attached?%>
+                <%=image_tag @listing.picture, alt: @brand.name, class: "thumbnail card-img-top"%>
+            <%else%>
+                <%=image_tag "patek.jpg", alt: @brand.name, class: "thumbnail card-img-top"%>
+            <%end%>
         </div>
     </div>
     <div class="sidebar col-lg-4 p-0 mx-2 d-md-block"> 
