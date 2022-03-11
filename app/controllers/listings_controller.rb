@@ -30,7 +30,7 @@ class ListingsController < ApplicationController
           listing_id: @listing.id
         }
       },
-      success_url: root_url,
+      success_url: "#{root_url}/payments/success/#{@listing.id}",
       cancel_url: root_url # notice: "Transaction has been cancelled"
     )
 
