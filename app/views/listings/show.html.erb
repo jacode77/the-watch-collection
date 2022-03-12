@@ -18,6 +18,7 @@
         <h4 class="text-muted">Year of purchase: <%=@listing.year%></h4>
         <h4 class="text-muted">Authenticity: <%=@listing.authenticity%></h4>
         <h4 class="text-muted">Description: <%=@listing.description%></h4>
+       <%#<h6>Category: <%@listing.category%> <%#Not rendering categories but is plucking them from the db %>
         <h4 class="text-muted">Price: <%=format_pricing(@listing.price)%></h4>
 
         <%# conditional statement only loads payment access if logged in, reducing overall load time %>

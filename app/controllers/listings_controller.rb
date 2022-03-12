@@ -60,6 +60,9 @@ class ListingsController < ApplicationController
   def update
     @listing.update(listing_params)
     if @listing.save
+      pp "**********"
+      pp @listing
+      pp "**********"
       redirect_to @listing, notice: "Listing successfully updated"
     else
       pp @listing.errors
@@ -96,8 +99,9 @@ class ListingsController < ApplicationController
     @brands = Brand.all
   end
 
+  # provides the paramaters that can be created/updated/modified
   def listing_params
-    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, :category_id)
+    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, :categories)
   end
 
 end

@@ -1,5 +1,5 @@
 
-
+ <%# delcare form object for create form %>
 <%= simple_form_for @listing do |f|%>
   <%= f.select :brand_id, @brands.map {|b| [b.name, b.id]}%>
   <%= f.input :model %>
@@ -10,9 +10,14 @@
   <%= f.input :year %>
   <%= f.input :authenticity, as: :radio_buttons, collection: [['0', 'false'], ['1', 'true']], label_method: :second, value_method: :first %>
   
-  <%# <%= f.input :category_id, collection: @categories.map {|c| [c.name, c.id]}, as: :check_boxes %> 
-  <%=f.select :category_id, @categories.map {|c| [c.name, c.id]}, as: :check_boxes, class: "form-select"%>
-        
+  <%= f.collection_check_boxes :categories, @categories, :id, :name do |b| %>
+    <%= b.label class: "form-check-label" %>
+    <%= b.check_box class: "form-check-line mr-2" %>
+  <%end%>
+
+  <%# <%= f.input :category_id, collection: @categories.map {|c| [c.name, c.id]}, as: :check_boxes %>
+  <%# <%=f.select :category_id, @categories.map {|c| [c.name, c.id]}, as: :check_boxes, class: "form-select" %> 
+  <%# <%= f.select(:category_id, options_from_collection_for_select(Category.all, :category_id, :name)) %>
   <%= f.input :picture, accept: "image/png, image/jpg, image/jpeg"%>
 
   <%= f.input :description%>
