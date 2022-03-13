@@ -1,4 +1,4 @@
 <div>
-    <h4>Congratulations, you are the new owner of the <%=@brand.name%> <%=@listing.model%> watch!</h4>
-    <%= link_to "Explore", listings_path %>
+    <h4>Congratulations, you are the new owner of the <%=@brand.name%> <%=@order.listing.model%> watch!</h4>
+    <%= link_to "View Receipt", @order.receipt_url %>
 </div>
