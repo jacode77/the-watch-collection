@@ -11,6 +11,7 @@ class ListingsController < ApplicationController
     @listings = Listing.all
   end
 
+  # takes details of specific (selected) listing and creates a stripe checkout session
   def show
     session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
@@ -34,6 +35,7 @@ class ListingsController < ApplicationController
       cancel_url: root_url # notice: "Transaction has been cancelled"
     )
 
+    # Redirects us to Stripe based on the session id
     @session_id = session.id
 
   end
@@ -42,6 +44,7 @@ class ListingsController < ApplicationController
     @listing = Listing.new
   end
 
+  # Creates a listing through a (current) user, redirects accordingly if created successfully or not
   def create
     @listing = current_user.listings.new(listing_params)
     if @listing.save
@@ -78,8 +81,8 @@ class ListingsController < ApplicationController
 
   private
 
+  # Allows functions to show individual listing/brand item
   def display_listing
-    #To show individual listing item
     @listing = Listing.find(params[:id])
     @brand = Brand.find(@listing.brand_id)
   end
@@ -94,6 +97,7 @@ class ListingsController < ApplicationController
     @brands = Brand.all
   end
 
+  # Loads all the items in each related variable class
   def form_vars
     @categories = Category.all
     @brands = Brand.all

@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  # Avoids displaying authenticity token in transation
+  # Avoids displaying authenticity token in transation - Necessary step as it comes from an outside source and cannot verify the auth token
   skip_before_action :verify_authenticity_token, only: [:webhook]
 
   def success
