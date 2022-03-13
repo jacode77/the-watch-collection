@@ -22,7 +22,13 @@
 
         <%# conditional statement only loads payment access if logged in, reducing overall load time %>
         <%if current_user && @listing.sold == false %>
-            <button class="btn btn-secondary mb-3 p-2" data-stripe="payment">Buy:<%=format_pricing(@listing.price)%> </button>
+            <%=button_to "Buy: #{format_pricing(@listing.price)}", 
+                checkout_session_path,
+                remote: true,
+                method: :post,
+                params: {id: @listing.id},
+                class: "btn btn-secondary mb-3 p-2",
+                data: {disable_with: "Loading..."}%>
         <%elsif @listing.sold == true %>
             <button class="btn btn-dark" disabled>SOLD</button>
         <%else%>
@@ -39,17 +45,3 @@
         </div>
     </div>
 </section>
-
-<script src="https://js.stripe.com/v3/"></script>
-
-<script>
-document
-    .querySelector("[data-stripe='payment']")
-    .addEventListener("click", () => {
-        const stripe = Stripe("<%=Rails.application.credentials.dig(:stripe, :public_key)%>");
-        console.log(stripe);
-        stripe.redirectToCheckout({
-            sessionId: "<%=@session_id%>"
-        })
-    })
-</script>

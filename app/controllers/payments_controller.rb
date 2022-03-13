@@ -1,10 +1,38 @@
 class PaymentsController < ApplicationController
   # Avoids displaying authenticity token in transation
   skip_before_action :verify_authenticity_token, only: [:webhook]
+  before_action :listing_vars, only: [:success, :checkout_session]
 
   def success
     @order = Order.find_by(listing_id: params[:id])
-    @brand = Brand.find(@listing.brand_id)
+  end
+
+  # loads payment details on click rather than if user just browsing, makes load time more efficient
+  def checkout_session
+
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ["card"],
+      customer_email: current_user && current_user.email,
+      line_items: [
+        {
+          name: @brand.name,
+          description: @listing.description,
+          amount: @listing.price,
+          currency: 'aud',
+          quantity: 1
+        }
+      ],
+      payment_intent_data: {
+        metadata: {
+          user_id: current_user && current_user.id,
+          listing_id: @listing.id
+        }
+      },
+      success_url: "#{root_url}/payments/success/#{@listing.id}",
+      cancel_url: root_url # notice: "Transaction has been cancelled"
+    )
+
+    @session_id = session.id
   end
 
   # Only runs when transaction successfully processed. Provides payment data from stripe & verifies signing secret to make transaction more secure
@@ -36,4 +64,12 @@ class PaymentsController < ApplicationController
     # Setup for transactions tracking, tracks in orders table
     Order.create(listing_id: listing_id, buyer_id: user_id, seller_id: @listing.user_id, payment_id: payment_intent_id, receipt_url: payment.charges.data[0].receipt_url)
   end
+end
+
+private
+
+# keeps code DRY by using as a before action
+def listing_vars
+  @listing = Listing.find(params[:id])
+  @brand = Brand.find(@listing.brand_id)
 end
