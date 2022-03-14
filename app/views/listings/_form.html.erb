@@ -10,8 +10,8 @@
   <%= f.input :year %>
   <%= f.input :authenticity, as: :radio_buttons, collection: [['0', 'false'], ['1', 'true']], label_method: :second, value_method: :first %>
   
-  <%= f.collection_check_boxes :categories, @categories, :id, :name do |b| %>
-    <%= b.label class: "form-check-label" %>
+  <%= f.collection_check_boxes :listings_categories, @categories, :id, :name do |b| %>
+    <%= b.label class: "form-check-label"%>
     <%= b.check_box class: "form-check-line mr-2" %>
   <%end%>
 
