@@ -11,8 +11,8 @@ class ListingsController < ApplicationController
     @listings = Listing.all
   end
 
+  # takes details of specific (selected) listing and creates a stripe checkout session
   def show
-
 
   end
 
@@ -20,9 +20,30 @@ class ListingsController < ApplicationController
     @listing = Listing.new
   end
 
+  # Creates a listing through a (current) user, redirects accordingly if created successfully or not
+  # def create
+  #   @listing = current_user.listings.new(listing_params)
+  #   if @listing.save
+  #     # Creates related category listings in listings_categories table
+  #     params[:listing][:listings_categories].each do |cat|
+  #       ListingsCategory.create(listing: @listing, category_id: cat) if cat != ""
+  #     end
+  #     redirect_to @listing, notice: "Listing successfully created"
+  #       # else
+  #       #   pp @listing.errors
+  #       #   form_vars
+  #       #   render "new", notice: "Listing not saved, please review and try again"
+  #     # end
+  #   end
+  # end
+
   def create
     @listing = current_user.listings.new(listing_params)
+     # Creates related category listings in listings_categories table
     if @listing.save
+      params[:listing][:listings_categories].each do |cat|
+        ListingsCategory.create(listing: @listing, category_id: cat) if cat != ""
+      end
       redirect_to @listing, notice: "Listing successfully created"
     else
       pp @listing.errors
@@ -38,6 +59,12 @@ class ListingsController < ApplicationController
   def update
     @listing.update(listing_params)
     if @listing.save
+      params[:listing][:listings_categories].each do |cat|
+        ListingsCategory.create(listing: @listing, category_id: cat) if cat != ""
+      end
+      pp "**********"
+      pp @listing
+      pp "**********"
       redirect_to @listing, notice: "Listing successfully updated"
     else
       pp @listing.errors
@@ -53,8 +80,8 @@ class ListingsController < ApplicationController
 
   private
 
+  # Allows functions to show individual listing/brand item
   def display_listing
-    #To show individual listing item
     @listing = Listing.find(params[:id])
     @brand = Brand.find(@listing.brand_id)
   end
@@ -69,13 +96,15 @@ class ListingsController < ApplicationController
     @brands = Brand.all
   end
 
+  # Loads all the items in each related variable class
   def form_vars
     @categories = Category.all
     @brands = Brand.all
   end
 
+  # provides the paramaters that can be created/updated/modified
   def listing_params
-    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, :categories)
+    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, listings_categories: [:category_id])
   end
 
 end
