@@ -104,7 +104,7 @@ class ListingsController < ApplicationController
 
   # provides the paramaters that can be created/updated/modified
   def listing_params
-    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, listings_categories: [:category_id])
+    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, listings_categories: [])
   end
 
 end

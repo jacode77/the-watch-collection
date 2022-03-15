@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   
   root to: "pages#home"
+  get "pages/about", to: "pages#about", as: "about"
   get "listings", to: "listings#index", as: "listings"
   post "listings", to: "listings#create"
   get "listings/new", to: "listings#new", as: "new_listing"

@@ -11,21 +11,19 @@
     <div class="sidebar col-lg-4 p-0 mx-2 d-md-block"> 
         <h1 class="mb-sm-2 mb-md-5"><%=@brand.name%></h1>
         <h4 class="text-muted">Model: <%=@listing.model%></h4>
-        <h4 class="text-muted">Condition: <%=@listing.condition%></h4>
-        <h4 class="text-muted">Movement: <%=@listing.movement%></h4>
-        <h4 class="text-muted">Case: <%=@listing.case_details%></h4>
-        <h4 class="text-muted">Strap: <%=@listing.strap%></h4>
-        <h4 class="text-muted">Year of purchase: <%=@listing.year%></h4>
-        <%# <h4 class="text-muted">Authenticity: <%=@listing.authenticity%>
+        <h4 class="text-muted mb-3">Condition: <%=@listing.condition%></h4>
+        <h4 class="text-muted mb-3">Movement: <%=@listing.movement%></h4>
+        <h4 class="text-muted mb-3">Case: <%=@listing.case_details%></h4>
+        <h4 class="text-muted mb-3">Strap: <%=@listing.strap%></h4>
+        <h4 class="text-muted mb-3">Year of purchase: <%=@listing.year%></h4>
 
         <% if @listing.authenticity == true %>
-            <h4 class="text-muted">Authenticity verified by The Watch Collection</h4>
-
-            <% else %>
-            <h4 class="text-muted">Paperwork not included</h4>
+            <h4 class="text-muted mb-3">Authenticity verified by The Watch Collection</h4>
+        <% else %>
+            <h4 class="text-muted mb-3">Paperwork not included</h4>
         <%end%>
-        <h4 class="text-muted">Description: <%=@listing.description%></h4>
-        <h4 class="text-muted">Price: <%=format_pricing(@listing.price)%></h4>
+        <h4 class="text-muted mb-3">Description: <%=@listing.description%></h4>
+        <h4 class="text-muted mb-3">Price: <%=format_pricing(@listing.price)%></h4>
 
         <%# conditional statement only loads payment access if logged in, reducing overall load time %>
         <%if current_user && @listing.sold == false %>
