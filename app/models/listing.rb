@@ -7,4 +7,7 @@ class Listing < ApplicationRecord
   accepts_nested_attributes_for :listings_categories
 
   has_one_attached :picture
+
+  # validations. Certain params are not included such as picture. Would be ideal to make it only valid on creation but not for updating
+  validates :brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, presence: true
 end

@@ -46,7 +46,9 @@ class ListingsController < ApplicationController
       end
       redirect_to @listing, notice: "Listing successfully created"
     else
+      pp "**********"
       pp @listing.errors
+      pp "**********"
       form_vars
       render "new", notice: "Listing not saved, please review and try again"
     end
@@ -104,7 +106,7 @@ class ListingsController < ApplicationController
 
   # provides the paramaters that can be created/updated/modified
   def listing_params
-    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, listings_categories: [])
+    params.require(:listing).permit(:brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, :picture, :authenticity, listings_categories: [:category_id])
   end
 
 end

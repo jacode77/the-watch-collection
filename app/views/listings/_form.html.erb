@@ -1,25 +1,30 @@
-
  <%# delcare form object for create form %>
 <%= simple_form_for @listing do |f|%>
-  <%= f.select :brand_id, @brands.map {|b| [b.name, b.id]}%>
+
+  <%if @listing.errors.any?%>
+    <div class="alert alert-error alert-dismissable fade show">
+      <h3><%=pluralize(@listing.errors.count, "error")%> prevented this listing from being be saved</h3>
+      <button type="button" class="close" data-dismiss="alert" aria-label="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <%end%>
+
+  <%= f.select :brand_id, @brands.map {|b| [b.name, b.id]} %>
   <%= f.input :model %>
   <%= f.input :condition %>
   <%= f.input :movement %>
   <%= f.input :case_details %>
   <%= f.input :strap %>
   <%= f.input :year %>
-  <%= f.input :authenticity, as: :radio_buttons, collection: [['0', 'paperwork not included'], ['1', 'authenticity paperwork included']], label_method: :second, value_method: :first %>
+  <%= f.input :authenticity, as: :radio_buttons, collection: [['0', 'Paperwork not included'], ['1', 'Paperwork included']], label_method: :second, value_method: :first, class:"custom-control-input"%>
   
   <h5>Categories</h5>
   <%= f.collection_check_boxes :listings_categories, @categories, :id, :name do |b| %>
-    <%= b.label %>
+    <%= b.label class: "form-check-label"%>
     <%= b.check_box class: "form-check-line mr-2" %>
   <%end%>
-
-  <%# <%= f.input :categories, collection: @categories.map {|c| [c.name, c.id]}, as: :check_boxes %>
-  <%# <%=f.select :categories, @categories.map {|c| [c.name, c.id]}, as: :check_boxes, class: "form-select" %> 
-  <%# <%= f.select(:categories, options_from_collection_for_select(Category.all, :categories, :name)) %>
-
+  
   <%= f.input :picture, accept: "image/png, image/jpg, image/jpeg"%>
 
   <%= f.input :description%>
