@@ -10,4 +10,37 @@ class Listing < ApplicationRecord
 
   # validations. Certain params are not included such as picture. Would be ideal to make it only valid on creation but not for updating
   validates :brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, presence: true
+  validates :year, length: {is: 4}, numericality: { only_integer: true }
+
+  # data sanitisation to control data going into database and presented in view
+  before_save :remove_whitespace
+  before_save :remove_fullstop
+  before_validation :convert_price_to_cents, if: :price_changed?
+
+  private
+
+  # Removes whitespace before/after text in string
+  def remove_whitespace
+    self.model = self.model.strip
+    self.condition = self.condition.strip
+    self.movement = self.movement.strip
+    self.case_details = self.case_details.strip
+    self.strap = self.strap.strip
+    self.description = self.description.strip
+  end
+
+  # Removes fullstop ad the end of a sentence to appear tidier in view
+  def remove_fullstop
+    self.model = self.model.chomp('.')
+    self.condition = self.condition.chomp('.')
+    self.movement = self.movement.chomp('.')
+    self.case_details = self.case_details.chomp('.')
+    self.strap = self.strap.chomp('.')
+    self.description = self.description.chomp('.')
+  end
+
+  # Converts price to cents when hitting the database
+  def convert_price_to_cents
+    self.price = (self.attributes_before_type_cast["price"].to_f * 100).round
+  end
 end

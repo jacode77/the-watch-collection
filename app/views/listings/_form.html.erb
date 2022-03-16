@@ -28,7 +28,7 @@
   <%= f.input :picture, accept: "image/png, image/jpg, image/jpeg"%>
 
   <%= f.input :description%>
-  <%= f.input :price%>
+  <%= f.input :price, step: "0.00"%>
   <%= f.submit class: "btn btn-secondary"%>
 <%end %>
 
