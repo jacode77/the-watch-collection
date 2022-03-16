@@ -27,7 +27,7 @@
 
         <%# conditional statement only loads payment access if logged in, reducing overall load time %>
         <%if current_user && @listing.sold == false %>
-            <%=button_to "Buy: #{format_pricing(@listing.price)}", 
+            <%=button_to "Purchase", 
                 checkout_session_path,
                 remote: true,
                 method: :post,

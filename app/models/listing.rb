@@ -8,13 +8,15 @@ class Listing < ApplicationRecord
 
   has_one_attached :picture
 
-  # validations. Certain params are not included such as picture. Would be ideal to make it only valid on creation but not for updating
+  # validations. Certain params are not included such as picture. Will review later to ensure on first post this is inclded but update is not
   validates :brand_id, :model, :condition, :movement, :case_details, :strap, :year, :price, :description, presence: true
   validates :year, length: {is: 4}, numericality: { only_integer: true }
 
   # data sanitisation to control data going into database and presented in view
   before_save :remove_whitespace
   before_save :remove_fullstop
+  before_update :remove_whitespace
+  before_update :remove_fullstop
   before_validation :convert_price_to_cents, if: :price_changed?
 
   private
