@@ -51,6 +51,9 @@ class PaymentsController < ApplicationController
       return
     end
 
+    puts "******"
+    event
+    puts "******"
 
     # Once secret is verified, the following will run
     payment_intent_id = event.data.object.payment_intent
