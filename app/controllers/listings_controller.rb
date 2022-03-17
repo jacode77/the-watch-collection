@@ -6,12 +6,12 @@ class ListingsController < ApplicationController
   before_action :authorize_user, only: [:edit, :update, :destroy]
   before_action :form_vars, only: [:index, :new, :edit]
 
+  #To show all listings
   def index
-    #To show all listings
-    @listings = Listing.all
+    @listings = Listing.all.order(created_at: :asc).includes(:brand)
   end
 
-  # takes details of specific (selected) listing and creates a stripe checkout session
+ 
   def show
 
   end
@@ -21,22 +21,6 @@ class ListingsController < ApplicationController
   end
 
   # Creates a listing through a (current) user, redirects accordingly if created successfully or not
-  # def create
-  #   @listing = current_user.listings.new(listing_params)
-  #   if @listing.save
-  #     # Creates related category listings in listings_categories table
-  #     params[:listing][:listings_categories].each do |cat|
-  #       ListingsCategory.create(listing: @listing, category_id: cat) if cat != ""
-  #     end
-  #     redirect_to @listing, notice: "Listing successfully created"
-  #       # else
-  #       #   pp @listing.errors
-  #       #   form_vars
-  #       #   render "new", notice: "Listing not saved, please review and try again"
-  #     # end
-  #   end
-  # end
-
   def create
     @listing = current_user.listings.new(listing_params)
      # Creates related category listings in listings_categories table

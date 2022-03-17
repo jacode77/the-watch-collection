@@ -6,9 +6,11 @@ class PaymentsController < ApplicationController
   def success
     @order = Order.find_by(listing_id: params[:id])
   end
-
-  # loads payment details on click rather than if user just browsing, makes load time more efficient
+  
+  # takes details of specific (selected) listing and creates a stripe checkout session
+  # Also loads payment details on click rather than if user just browsing, makes load time more efficient
   def checkout_session
+    @listing = Listing.find(params[:id]) 
 
     session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
@@ -73,6 +75,5 @@ private
 
 # keeps code DRY by using as a before action
 def listing_vars
-  @listing = Listing.find(params[:id])
   @brand = Brand.find(@listing.brand_id)
 end

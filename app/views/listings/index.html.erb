@@ -2,28 +2,37 @@
 <section class="container-fluid">
     <div class="album py-5 bg-light">
         <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <%@listings.each do |item|%>
                 <div class="col">
-                <div class="card shadow-sm">
-                <%if item.picture.attached?%>
-                        <%=image_tag item.picture, alt: item.brand.name, class: "bd-placeholder-img card-img-top h-225"%>
-                <%else%>
-                        <%=image_tag "patek.jpg", alt: item.brand.name, class: "bd-placeholder-img card-img-top h-225" %>
-                <%end%>
-                <div class="card-body">
-                    <h5><%=item.brand.name%></h5>
-                    <p class="card-text"><%=item.model%></p>
+                    <div class="card shadow-sm">
+                        <%if item.picture.attached?%>
+                            <%=image_tag item.picture, alt: item.brand.name, class: "bd-placeholder-img card-img-top h-225"%>
+                        <%else%>
+                            <%=image_tag "default.jpg", alt: item.brand.name, class: "bd-placeholder-img card-img-top h-225" %>
+                        <%end%>
+                
+                    <div class="card-body">
+                        <h5><%=item.brand.name%></h5>
+                        <p class="card-text"><%=item.model%></p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <%=link_to "See More", listing_path(item.id), class:"btn btn-outline-secondary"%>
-                            </div>
-                            <small class="text-muted"><%=format_pricing(item.price)%></small>
-                        </div>
+
+                    <div class="btn-group">
+                        <%if item.sold == false %>
+                            <%=link_to "See More", listing_path(item.id), class:"btn btn-outline-secondary"%>
+                        <%else%>
+                            <%=link_to "SOLD", listing_path(item.id), class:"btn btn-secondary"%>
+                        <%end%>
+                    </div>
+
+                        <small class="text-muted"><%=format_pricing(item.price)%></small>
+
+                    </div>
+                    </div>
                 </div>
+                
             </div>
-            </div>
-        <%end%>
+            <%end%> 
         </div>
     </div>
 </section>

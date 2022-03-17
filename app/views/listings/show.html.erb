@@ -4,7 +4,7 @@
             <%if @listing.picture.attached?%>
                 <%=image_tag @listing.picture, alt: @brand.name, class: "thumbnail card-img-top"%>
             <%else%>
-                <%=image_tag "patek.jpg", alt: @brand.name, class: "thumbnail card-img-top"%>
+                <%=image_tag "default.jpg", alt: @brand.name, class: "thumbnail card-img-top"%>
             <%end%>
         </div>
     </div>
