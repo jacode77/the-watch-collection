@@ -4,16 +4,18 @@ class PaymentsController < ApplicationController
   # before_action :brand_vars, only: [:success, :checkout_session]
 
   def success
-    @order = Order.find_by(listing_id: params[:id])
-    # @brand = Brand.find(@listing.brand_id)
-    @brand = Brand.find(@order.listing.brand)
+    @brands = Brand.all
+    @order = Order.find_by(listing_id: params[:id]
+    @brand= Brand.find(@order.listing.brand_id)
+    
+    
   end
   
   # takes details of specific (selected) listing and creates a stripe checkout session
   # Also loads payment details on click rather than if user just browsing, makes load time more efficient
   def checkout_session
     @listing = Listing.find(params[:id])
-    @brand = Order.listing.brand.find(@listing.brand_id)
+    @brand = Brand.find(@listing.brand_id)
 
     session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
@@ -74,7 +76,7 @@ class PaymentsController < ApplicationController
   end
 end
 
-private
+# private
 
 # keeps code DRY by using as a before action
 # def brand_vars
