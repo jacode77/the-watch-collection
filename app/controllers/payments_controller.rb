@@ -5,7 +5,7 @@ class PaymentsController < ApplicationController
 
   def success
     @brands = Brand.all
-    @order = Order.find_by(listing_id: params[:id]
+    @order = Order.find_by(listing_id: params[:id])
     @brand= Brand.find(@order.listing.brand_id)
     
     
