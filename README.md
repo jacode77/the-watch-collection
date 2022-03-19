@@ -1,6 +1,6 @@
 # The Watch Collection
 
-Things may need to be consider:
+This app has been built on:
 
 - Ruby version
   This app has been built on Ruby version 2.7.2p137
