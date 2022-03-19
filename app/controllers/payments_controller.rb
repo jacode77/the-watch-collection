@@ -1,14 +1,12 @@
 class PaymentsController < ApplicationController
   # Avoids displaying authenticity token in transation - Necessary step as it comes from an outside source and cannot verify the auth token
   skip_before_action :verify_authenticity_token, only: [:webhook]
-  # before_action :brand_vars, only: [:success, :checkout_session]
 
+  # Provides access to classes to render related db information
   def success
     @brands = Brand.all
     @order = Order.find_by(listing_id: params[:id])
-    @brand= Brand.find(@order.listing.brand_id)
-    
-    
+    @brand = Brand.find(@order.listing.brand)
   end
   
   # takes details of specific (selected) listing and creates a stripe checkout session
@@ -35,7 +33,7 @@ class PaymentsController < ApplicationController
           listing_id: @listing.id
         }
       },
-      success_url: "#{root_url}/payments/success/#{@listing.id}",
+      success_url: "#{root_url}payments/success/#{@listing.id}",
       cancel_url: root_url
     )
 
@@ -75,10 +73,3 @@ class PaymentsController < ApplicationController
     Order.create(listing_id: listing_id, buyer_id: buyer_id, seller_id: @listing.user_id, payment_id: payment_intent_id, receipt_url: payment.charges.data[0].receipt_url)
   end
 end
-
-# private
-
-# keeps code DRY by using as a before action
-# def brand_vars
-#   @brand = Brand.find(@order.listing.brand)
-# end

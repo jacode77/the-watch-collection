@@ -46,7 +46,7 @@ class ListingsController < ApplicationController
     @listing.update(listing_params)
     if @listing.save
       params[:listing][:listings_categories].each do |cat|
-        ListingsCategory.create(listing: @listing, category_id: cat) if cat != ""
+        ListingsCategory.update(listing: @listing, category_id: cat) if cat != ""
       end
       pp "**********"
       pp @listing
