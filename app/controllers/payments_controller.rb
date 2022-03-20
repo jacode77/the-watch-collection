@@ -69,6 +69,7 @@ class PaymentsController < ApplicationController
     @listing = Listing.find(listing_id)
     @listing.update(sold: true)
     puts "******"
+    puts "Testing"
     # Setup for transactions tracking, tracks in orders table
     Order.create(listing_id: listing_id, seller_id: @listing.user_id, buyer_id: buyer_id, payment_id: payment_intent_id, receipt_url: payment.charges.data[0].receipt_url)
     puts "******"
