@@ -3,10 +3,16 @@ class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:webhook]
 
   # Provides access to classes to render related db information
+  # def success
+  #   @brands = Brand.all
+  #   @order = Order.find_by(listing_id: params[:id])
+  #   @brand = Brand.find(@order.listing.brand)
+  # end
+
   def success
-    @brands = Brand.all
+    @listing = Listing.find(params[:id])
     @order = Order.find_by(listing_id: params[:id])
-    @brand = Brand.find(@order.listing.brand)
+    @brand = @listing.brand
   end
   
   # takes details of specific (selected) listing and creates a stripe checkout session
