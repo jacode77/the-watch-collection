@@ -5,6 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# if Listing.count == 0
+#     (1..6).each do |id|
+#         Listing.create!(
+#             listing_name: Faker::Game.title, 
+#             condition: rand(1..5),
+#             price: rand(10..30),
+#             listing_status: rand(1..4),
+#             description: Faker::Movies::Ghostbusters.quote,
+#             user_id: rand(1..5), 
+#             category_id: rand(1..6),
+#             shipping: rand(1..3)
+#         )
+#     end
+# end
+
+
 
 brands = ["Rolex", "Omega", "Patek Philippe", "Piaget", "Cartier", "Jaeger-LeCoultre", "Richard Mille", "Panerai", "Chopard", "Audemars Piguet"]
 

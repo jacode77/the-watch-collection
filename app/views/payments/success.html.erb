@@ -1,5 +1,6 @@
 <div>
     <h2>Thank you for your payment!</h2>
-    <h4>Congratulations, you are the new owner of the <%=@order.brand_id.name%> <%=@order.listing.model%> watch.</h4>
+    <%# <% <h4>Congratulations, you are the new owner of the <%=@order.brand_id.name%> 
+    <%# <%=@order.listing.model watch.</h4> %>
     <%= link_to "Click here to view your receipt", @order.receipt_url %>
 </div>
